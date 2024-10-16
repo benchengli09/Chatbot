@@ -49,20 +49,7 @@ def search_in_faiss(query, index, metadata, client, top_k):
         surrounding_qas = get_surrounding_qas(metadata, idx, context_size=4)
         chunks.append([surrounding_qas, distance])
 
-    # Join all results into one response with <br> line breaks for HTML formatting
-    #response = "<br><br>".join(sentences)
     return chunks
-
-# def get_surrounding_qas(metadata, index, context_size=4):
-#     # Get 4 QA pairs before and after the current index, ensuring we stay within bounds
-#     start = max(0, index - context_size)  # Ensure we don't go below index 0
-#     end = min(len(metadata), index + context_size + 1)  # Ensure we don't exceed the length of the metadata
-
-#     # Get the surrounding QA pairs
-#     surrounding_qas = metadata[start:end]
-
-#     # Format the surrounding QA pairs as a string
-#     return "<br>".join(surrounding_qas)
 
 def get_surrounding_qas(metadata, index, context_size=4):
     # Get 4 QA pairs before and after the current index, ensuring we stay within bounds
