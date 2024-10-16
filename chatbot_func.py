@@ -118,8 +118,10 @@ def display_message():
                 else:
                     st.markdown(f"<div class='ai-message'>{message}</div>", unsafe_allow_html=True)
                     with st.expander("Show context and distance: "):
-                        st.markdown(f"<div class='ai-message'>{f"Distance: {st.session_state.distance_store[message[4:]]}"}</div>", unsafe_allow_html=True)
-                        st.markdown(f"<div class='ai-message'>{f"Context: <br><br>{st.session_state.context_store[message[4:]]}"}</div>", unsafe_allow_html=True)            
+                        distance_message = f"Distance: {st.session_state.distance_store[message[4:]]}"
+                        st.markdown(f"<div class='ai-message'>{distance_message}</div>", unsafe_allow_html=True)
+                        context_message = f"Context: <br><br>{st.session_state.context_store[message[4:]]}"                        
+                        st.markdown(f"<div class='ai-message'>{context_message}</div>", unsafe_allow_html=True)            
             else:
                 time.sleep(2)
                 if message.startswith("User:"):
@@ -127,7 +129,9 @@ def display_message():
                 else:
                     st.markdown(f"<div class='ai-message'>{message}</div>", unsafe_allow_html=True)
                     with st.expander("Show context and distance: "):
-                        st.markdown(f"<div class='ai-message'>{f"Distance: {st.session_state.distance_store[message[4:]]}"}</div>", unsafe_allow_html=True)
-                        st.markdown(f"<div class='ai-message'>{f"Context: <br><br>{st.session_state.context_store[message[4:]]}"}</div>", unsafe_allow_html=True)
+                        distance_message = f"Distance: {st.session_state.distance_store[message[4:]]}"
+                        st.markdown(f"<div class='ai-message'>{distance_message}</div>", unsafe_allow_html=True)
+                        context_message = f"Context: <br><br>{st.session_state.context_store[message[4:]]}"                        
+                        st.markdown(f"<div class='ai-message'>{context_message}</div>", unsafe_allow_html=True)            
         #st.markdown('</div>', unsafe_allow_html=True)
 
