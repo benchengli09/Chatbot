@@ -43,15 +43,10 @@ def get_embedding(text, client, model="text-embedding-ada-002"):
     return response.data[0].embedding
 
 def get_embeddings_in_parallel(texts, client):
-    embeddings = []
-    # Use ThreadPoolExecutor to run tasks in parallel
+    # Generate embeddings in parallel and keep the order
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Map the function to the input texts in parallel
-        futures = {executor.submit(get_embedding, text, client): text for text in texts}
-        
-        # As results complete, gather the embeddings
-        for future in concurrent.futures.as_completed(futures):
-            embeddings.append(future.result())
+        # Map ensures that the order of results matches the order of input texts
+        embeddings = list(executor.map(lambda text: get_embedding(text, client), texts))
     return embeddings
 
 def store_in_faiss(qa_pairs, client):
@@ -60,12 +55,10 @@ def store_in_faiss(qa_pairs, client):
     index = faiss.IndexFlatL2(dimension)  # L2 distance metric (Euclidean distance)
 
     # Prepare embeddings and metadata (Q&A text)
-    embeddings = []
-    metadata = []
+    metadata = list(qa_pairs)  # Store the original Q&A pair as metadata
 
+    # Get embeddings in parallel
     embeddings = get_embeddings_in_parallel(qa_pairs, client)
-    for qa in qa_pairs:
-        metadata.append(qa)  # Store the original Q&A pair as metadata
 
     # Convert to NumPy array
     embeddings_np = np.array(embeddings).astype('float32')
