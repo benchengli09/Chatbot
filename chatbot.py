@@ -66,7 +66,7 @@ def main():
                         # Append the tuple (index_file, metadata_file, label) to the list
                 metadata = read_mdata(metadata_file)
                 st.session_state.index_metadata_label_list.append((idx, metadata, label))
-                st.sidebar.success("Database Read!")    
+        st.sidebar.success("Database Read!")    
 
     if user_data is not None:
         user_dataname = user_data.name
