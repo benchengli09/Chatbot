@@ -17,9 +17,6 @@ my_key = os.environ.get('MY_API_KEY','')
 wrapper_prompt = WRAPPER_PROMPT
 main_style = MAIN_PAGE_STYLE
 input_box_style = INPUT_BOX_STYLE
-index = faiss.read_index("faiss_index_2004_davidson.index")
-with open('metadata_2004_davidson.pkl', 'rb') as f:
-    metadata = pickle.load(f)
 
 def main():
     st.markdown(main_style, unsafe_allow_html=True)
